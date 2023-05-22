@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image, SafeAreaView,Text, TextInput, View, Pressable } from "react-native";
-import { AntDesign } from '@expo/vector-icons'; 
+import { AntDesign, Ionicons } from '@expo/vector-icons'; 
 
 // const Styles = StyleSheet.create({
 //     tela:{backgroundColor:'#70A9A1',width:'100%',height:'100%'},
@@ -15,7 +15,7 @@ import { AntDesign } from '@expo/vector-icons';
 export default function Login({navigation}) {
 
     function realizarLogin(){
-        navigation.replace('default')
+        navigation.replace('default');
     }
 
     return (
@@ -25,8 +25,17 @@ export default function Login({navigation}) {
                     <Image source={require('../../assets/logo.png')} resizeMode="contain" />
                 </View>
                 <View className='flex my-9'>
-                    <TextInput className='border-b-2 border-black rounded-md p-1 m-2' placeholder="CPF ou Nº de telefone"/>
-                    <TextInput className='border-b-2 border-black rounded-md p-1 m-2' placeholder="Senha"/>
+                    <View className='flex flex-row align-middle items-center justify-center w-full max-w-full border-b-2 border-black '>
+                        <Ionicons name="person" size={35} color="black"/>
+                        <TextInput className='rounded-md p-1 m-2 relative w-10/12' placeholder="Nº de telefone"/>
+                    </View>
+                    <View className='flex flex-row align-middle items-center justify-center w-full max-w-full border-b-2 border-black'>
+                        <Ionicons name="key-sharp" size={35} color="black" />
+                        <TextInput className=' rounded-md p-1 m-2 relative w-10/12' placeholder="Senha"/>
+                    </View>
+                    <Pressable onPress={realizarLogin}>
+                        <Text className='text-lg text-right'>Esqueci minha senha?</Text>
+                    </Pressable>
                     <View className='flex items-center mt-10'>
                         <Pressable onPress={realizarLogin}>
                             <Text className=' text-4xl font-bold m-2'>Entrar</Text>
@@ -36,7 +45,7 @@ export default function Login({navigation}) {
                         </Pressable>
                     </View>
                 </View>
-                <View className='flex items-center bottom-0'>
+                <View className='flex items-center bottom-5 absolute left-0 right-0'>
                         <Text className='mb-5'>Ou autentique utilizando:</Text>
                         <AntDesign name="google" size={50} color="black" onPress={realizarLogin}/>
                 </View>
