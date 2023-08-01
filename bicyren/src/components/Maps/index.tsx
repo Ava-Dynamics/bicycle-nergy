@@ -1,10 +1,8 @@
-import { useEffect, useMemo, useState } from "react";
+import { forwardRef, useEffect, useMemo, useState, useImperativeHandle } from "react";
 import MapView from "react-native-maps";
-
 import * as Location from 'expo-location';
-import { Marker } from "react-native-maps";
 
-export default function MapsBN(){
+const MapVW = forwardRef((props,ref)=>{
     const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
     const [region,setRegion] = useState(null);
@@ -18,7 +16,7 @@ export default function MapsBN(){
         }
     }
 
-    async function setLocal(local){
+    async function setLocal(local: any){
         setLocation(local);
     }
 
@@ -27,7 +25,8 @@ export default function MapsBN(){
     },[]);
 
     useMemo(()=>{
-        if(location){
+        getAuth()
+        if(location && errorMsg == null){
             setRegion({
                 latitude: location.coords.latitude,
                 longitude: location.coords.longitude,
@@ -43,17 +42,22 @@ export default function MapsBN(){
             })
         }
     },[location]);
+    
+    useImperativeHandle(ref, () => ({
+        center: ()=>{setRegion(false)}
+    }));
 
-   
     return (
         <MapView className='w-full h-full'
             region={region}
             showsUserLocation={true}
             showsTraffic={true}
             followsUserLocation={false}
-            showsMyLocationButton={true}
+            showsMyLocationButton={false}
         >
             {/* <Marker coordinate={region}></Marker> */}
         </MapView>
     )
-}
+})
+
+export default MapVW;
