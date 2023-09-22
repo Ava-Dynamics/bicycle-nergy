@@ -4,6 +4,7 @@ import { SearchBar } from "@rneui/base";
 import { useRef, useState } from "react";
 import { Avatar } from "@react-native-material/core";
 import { Ionicons } from "@expo/vector-icons";
+import { Link } from "expo-router";
 
 
 
@@ -46,8 +47,10 @@ export default function HomePage({navigation}){
           />
         </View>
         <View className="w-auto">
-          <Pressable onPress={()=>{navigation.navigate('Perfil')}} >
-            <Avatar style={{borderRadius:10,backgroundColor:'#72ff75'}}  label="Thaisa Fujii" size={45}/>
+          <Pressable>
+            <Link href={{pathname:"/profile/"}}>
+              <Avatar style={{borderRadius:10,backgroundColor:'#72ff75'}}  label="Thaisa Fujii" size={45}/>
+            </Link>
           </Pressable>
         </View>
       </View>

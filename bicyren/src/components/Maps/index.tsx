@@ -1,11 +1,14 @@
 import { forwardRef, useEffect, useMemo, useState, useImperativeHandle } from "react";
-import MapView from "react-native-maps";
+import MapView, { Marker } from "react-native-maps";
 import * as Location from 'expo-location';
+import { View } from "react-native";
+
 
 const MapVW = forwardRef((props,ref)=>{
     const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
     const [region,setRegion] = useState(null);
+    const MarkerPoints = [{x:-22.8232, y:-47.2782,t:'Bicicleta Aro 29 Caloi Velox MY23'},{x:-22.8284, y:-47.2698,t:'BICICLETA GTS ARO 29'}];
 
     async function getAuth(){
         let { status } = await Location.requestForegroundPermissionsAsync();
@@ -55,7 +58,19 @@ const MapVW = forwardRef((props,ref)=>{
             followsUserLocation={false}
             showsMyLocationButton={false}
         >
-            {/* <Marker coordinate={region}></Marker> */}
+        {
+            MarkerPoints.map((markerPoints,index)=>{return (
+                <Marker
+                    key={index}     
+                    title={markerPoints.t}
+                    coordinate={{
+                        latitude:markerPoints.x,
+                        longitude: markerPoints.y,
+                    }}
+                    image={require('../../images/bikeMark.png')}
+                />
+            )})
+        }
         </MapView>
     )
 })
