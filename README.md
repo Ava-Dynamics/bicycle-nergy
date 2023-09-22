@@ -12,3 +12,6 @@ Projeto terceiro ano FIAP
 
 1. Instale os requisitos executando o comando `npm i` na pasta `/bicyren`.
 2. Execute o aplicativo usando o comando `npm run android`.
+
+## APlicativo Android
+    Na pasta dist existe um instalador para Android

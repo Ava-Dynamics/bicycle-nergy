@@ -5,6 +5,14 @@
       "bundler": "metro"
     },
     "name": "bicyren",
-    "slug": "bicyren"
+    "slug": "bicyren",
+    "extra": {
+      "eas": {
+        "projectId": "f7de8672-d4e7-4adc-bc1d-1dd09f3d7b68"
+      }
+    },
+    "android": {
+      "package": "com.reseflix.bicyren"
+    }
   }
 }
