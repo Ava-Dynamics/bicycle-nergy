@@ -2,9 +2,9 @@ import { Pressable, View } from "react-native";
 import MapsVW from "../../src/components/Maps";
 import { SearchBar } from "@rneui/base";
 import { useRef, useState } from "react";
-import { Avatar } from "@react-native-material/core";
 import { Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
+import AvatarIcon from "../../src/components/AvatarIcon";
 
 
 
@@ -49,7 +49,7 @@ export default function HomePage({navigation}){
         <View className="w-auto">
           <Pressable>
             <Link href={{pathname:"/profile/"}}>
-              <Avatar style={{borderRadius:10,backgroundColor:'#72ff75'}}  label="Thaisa Fujii" size={45}/>
+              <AvatarIcon/>
             </Link>
           </Pressable>
         </View>

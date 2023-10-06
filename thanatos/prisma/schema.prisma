@@ -1,0 +1,45 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// PassportJS
+model Session {
+  id        String   @id 
+  sid       String   @unique
+  data      String  
+  expiresAt DateTime
+}
+// APP: Tudo relacionado ao app
+model User {
+  id        Int     @id @default(autoincrement())
+  email     String  @unique
+  name      String?
+  username  String  @unique
+  password  String
+  actived   Boolean @default(true)
+  image     String?
+}
+
+model File {
+  id           Int    @id @default(autoincrement())
+  fieldname    String
+  originalname String
+  encoding     String
+  mimetype     String
+  destination  String?
+  filename     String?
+  path         String?
+  size         Int
+  module       String?
+  userid       Int
+  buffer       String?
+}
+

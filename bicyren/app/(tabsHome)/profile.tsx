@@ -1,5 +1,5 @@
-import { Avatar } from "@react-native-material/core";
 import { View, Text, Pressable } from "react-native";
+import AvatarIcon from "../../src/components/AvatarIcon";
 
 function MenuOptions({text:string}){
     return(
@@ -15,7 +15,7 @@ export default function ProfilePage(){
     return (
         <View>
             <View className="w-full h-auto flex align-middle items-center p-5">
-                <Avatar style={{borderRadius:10,backgroundColor:'#72ff75'}}  label="Thaisa Fujii" size={70}/>
+                <AvatarIcon size={75}/>
                 <Text className="py-1">Thaísa Fujii</Text>
             </View>
             <View>
