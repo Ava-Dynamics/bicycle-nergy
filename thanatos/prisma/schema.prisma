@@ -43,3 +43,11 @@ model File {
   buffer       String?
 }
 
+model bike {
+  id Int @id @default(autoincrement())
+  coordinate String
+  name String
+  model String?
+  image Int?
+  user Int?
+}

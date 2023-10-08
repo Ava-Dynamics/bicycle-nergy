@@ -1,14 +1,15 @@
 import { forwardRef, useEffect, useMemo, useState, useImperativeHandle } from "react";
 import MapView, { Marker } from "react-native-maps";
 import * as Location from 'expo-location';
-import { View } from "react-native";
+import { router } from "expo-router";
+import axios from "axios";
 
 
 const MapVW = forwardRef((props,ref)=>{
     const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
     const [region,setRegion] = useState(null);
-    const MarkerPoints = [{x:-22.8232, y:-47.2782,t:'Bicicleta Aro 29 Caloi Velox MY23'},{x:-22.8284, y:-47.2698,t:'BICICLETA GTS ARO 29'}];
+    const [MarkerPoints,setMarkerPoints] = useState([]);
 
     async function getAuth(){
         let { status } = await Location.requestForegroundPermissionsAsync();
@@ -19,12 +20,26 @@ const MapVW = forwardRef((props,ref)=>{
         }
     }
 
+    async function MarkerPoint() {
+        let resp = (await axios.get('http://10.0.2.2:3001/bikes/ride')).data;
+        resp.forEach(element => {
+            element['coordinate'] = JSON.parse(element['coordinate']);
+            return element;
+        });
+        if(resp.length < 1){
+            await new Promise(r => setTimeout(r, 2000));
+            MarkerPoint();
+        }
+        setMarkerPoints(resp);
+    }
+
     async function setLocal(local: any){
         setLocation(local);
     }
 
     useEffect(()=>{
-        getAuth()
+        getAuth();
+        MarkerPoint();
     },[]);
 
     useMemo(()=>{
@@ -47,7 +62,7 @@ const MapVW = forwardRef((props,ref)=>{
     },[location]);
     
     useImperativeHandle(ref, () => ({
-        center: ()=>{setRegion(false)}
+        center: ()=>{setRegion(false);MarkerPoint()}
     }));
 
     return (
@@ -61,13 +76,16 @@ const MapVW = forwardRef((props,ref)=>{
         {
             MarkerPoints.map((markerPoints,index)=>{return (
                 <Marker
-                    key={index}     
-                    title={markerPoints.t}
+                    key={markerPoints.id}     
+                    title={markerPoints.coordinate.name}
                     coordinate={{
-                        latitude:markerPoints.x,
-                        longitude: markerPoints.y,
+                        latitude:markerPoints.coordinate.x,
+                        longitude: markerPoints.coordinate.y,
                     }}
                     image={require('../../images/bikeMark.png')}
+                    onPress={()=>{
+                        router.push({pathname:'/bike/' + markerPoints.id,params:{image:markerPoints.image,name:markerPoints.name}})
+                    }}
                 />
             )})
         }

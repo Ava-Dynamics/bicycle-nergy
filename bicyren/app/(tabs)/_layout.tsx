@@ -6,7 +6,7 @@ export default function TabLayout(){
     axios.delete('http://10.0.2.2:3001/auth/login').then(() =>{console.log('deslogado')}).catch(() =>{})
     return (
         <Tabs 
-            screenOptions={{headerShown:false,tabBarStyle:{backgroundColor:'rgb(220 252 231)'},tabBarActiveTintColor:'black'}}
+            screenOptions={{headerShown:false,tabBarStyle:{backgroundColor:'rgb(220 252 231)'},tabBarActiveTintColor:'black',tabBarHideOnKeyboard:true}}
         >
             <Tabs.Screen 
                 name="login"

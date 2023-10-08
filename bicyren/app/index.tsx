@@ -1,9 +1,31 @@
-import { View,Text,Image } from "react-native";
+import { View,Image } from "react-native";
 import { Button, Divider } from "@react-native-material/core";
 import { useRouter } from 'expo-router'
+import { useEffect } from "react";
+import axios from "axios";
 
 export default function Page(){
     const navigation = useRouter();
+
+    async function redirectLogin(){
+        try {
+            await axios.get('http://10.0.2.2:3001/auth/login').
+                then((resp)=>{
+                    if(resp.data['id']){
+                        navigation.push('/home');
+                    }
+                })
+                .catch(()=>{
+                    throw new Error("Falha no login");
+                })
+        }
+        catch (err) {}
+
+    }
+
+    useEffect(()=>{
+        redirectLogin();        
+    },[]);
 
     return (
         <View className=" flex-1 items-center justify-center content-center bg-green-100">
